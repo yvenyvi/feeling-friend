@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
       autofocus: true,
       onKeyEvent: _handleKeyEvent,
       child: Scaffold(
-        backgroundColor: const Color(0xFF121212), // Deep dark background
+        backgroundColor: const Color(0xFFFAFAFA), // Soft off-white background
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text(
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             style: GoogleFonts.fredoka(
               fontWeight: FontWeight.bold,
               fontSize: 28,
-              color: Colors.white,
+              color: const Color(0xFF333333),
             ),
           ),
           centerTitle: false,
@@ -147,7 +147,9 @@ class _HomePageState extends State<HomePage> {
           flexibleSpace: ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Container(color: Colors.black.withOpacity(0.2)),
+              child: Container(
+                color: Colors.white.withOpacity(0.5),
+              ), // lighter glass
             ),
           ),
           actions: [
@@ -158,13 +160,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFF1a1a2e), Color(0xFF16213e)],
-            ),
-          ),
+          // No gradient, just the background color
           child: Padding(
             padding: const EdgeInsets.only(
               top: 100.0,
@@ -179,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                   "How are you feeling?",
                   style: GoogleFonts.fredoka(
                     fontSize: 24,
-                    color: Colors.white70,
+                    color: const Color(0xFF555555), // Softer dark gray
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -188,13 +184,34 @@ class _HomePageState extends State<HomePage> {
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       int crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
+                      int rowCount = (Emotion.emotions.length / crossAxisCount)
+                          .ceil();
+
+                      // Calculate available height for the grid
+                      // Ensure there's enough space, fall back to a reasonable aspect ratio if height is very small
+                      double totalVerticalSpacing = (rowCount - 1) * 24.0;
+                      double cardHeight =
+                          (constraints.maxHeight - totalVerticalSpacing) /
+                          rowCount;
+
+                      double totalHorizontalSpacing =
+                          (crossAxisCount - 1) * 20.0;
+                      double cardWidth =
+                          (constraints.maxWidth - totalHorizontalSpacing) /
+                          crossAxisCount;
+
+                      double childAspectRatio = cardHeight > 0
+                          ? (cardWidth / cardHeight)
+                          : 0.85;
+
                       return GridView.builder(
-                        physics: const BouncingScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 24,
-                          childAspectRatio: 0.85,
+                          childAspectRatio: childAspectRatio,
                         ),
                         itemCount: Emotion.emotions.length,
                         itemBuilder: (context, index) {
@@ -228,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 backgroundColor: Colors.redAccent.shade400,
-                elevation: 12,
+                elevation: 4,
                 tooltip: 'Stop Speaking (Esc)',
               )
             : null,
@@ -244,11 +261,13 @@ class _HomePageState extends State<HomePage> {
   ) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.black.withOpacity(
+          0.05,
+        ), // Subtle dark tint for light mode
         borderRadius: BorderRadius.circular(12),
       ),
       child: IconButton(
-        icon: Icon(icon, size: 24, color: Colors.white),
+        icon: Icon(icon, size: 24, color: const Color(0xFF333333)),
         tooltip: tooltip,
         onPressed: onPressed,
       ),

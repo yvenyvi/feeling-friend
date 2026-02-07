@@ -7,13 +7,13 @@ class HelpDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color(0xFF2E2E3E),
+      backgroundColor: Colors.white,
       title: Text(
         'How to Use',
         style: GoogleFonts.fredoka(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: const Color(0xFF333333),
         ),
       ),
       content: SingleChildScrollView(
@@ -70,7 +70,7 @@ class HelpDialog extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.white10,
+            color: const Color(0xFFF0F0F0), // Light grey background for icon
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: const Color(0xFF6C63FF), size: 24),
@@ -85,13 +85,16 @@ class HelpDialog extends StatelessWidget {
                 style: GoogleFonts.fredoka(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: const Color(0xFF333333),
                 ),
               ),
               const SizedBox(height: 6),
               Text(
                 description,
-                style: GoogleFonts.fredoka(fontSize: 14, color: Colors.white70),
+                style: GoogleFonts.fredoka(
+                  fontSize: 14,
+                  color: const Color(0xFF666666),
+                ),
               ),
             ],
           ),

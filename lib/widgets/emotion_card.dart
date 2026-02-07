@@ -46,14 +46,6 @@ class _EmotionCardState extends State<EmotionCard>
 
   @override
   Widget build(BuildContext context) {
-    // Determine gradient alignment
-    // Use a diagonal gradient for dynamism
-    final gradient = LinearGradient(
-      colors: widget.emotion.gradientColors,
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    );
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -62,7 +54,7 @@ class _EmotionCardState extends State<EmotionCard>
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),
-          gradient: gradient,
+          color: widget.emotion.color, // Solid color
           boxShadow: [
             BoxShadow(
               color: widget.emotion.color.withOpacity(0.4),
@@ -79,42 +71,45 @@ class _EmotionCardState extends State<EmotionCard>
             splashColor: Colors.white24,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Emoji with subtle shadow
-                  Text(
-                    widget.emotion.emoji,
-                    style: const TextStyle(
-                      fontSize: 80,
-                      shadows: [
-                        Shadow(
-                          offset: Offset(0, 4),
-                          blurRadius: 8.0,
-                          color: Colors.black12,
-                        ),
-                      ],
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Emoji with subtle shadow
+                    Text(
+                      widget.emotion.emoji,
+                      style: const TextStyle(
+                        fontSize: 80,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(0, 4),
+                            blurRadius: 8.0,
+                            color: Colors.black12,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  // Label with high contrast
-                  Text(
-                    widget.emotion.label,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.fredoka(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: [
-                        const Shadow(
-                          offset: Offset(0, 2),
-                          blurRadius: 4.0,
-                          color: Colors.black26,
-                        ),
-                      ],
+                    const SizedBox(height: 16),
+                    // Label with high contrast
+                    Text(
+                      widget.emotion.label,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.fredoka(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          const Shadow(
+                            offset: Offset(0, 2),
+                            blurRadius: 4.0,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

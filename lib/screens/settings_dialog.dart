@@ -31,14 +31,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color(0xFF2E2E3E), // Dark dialog bg
+      backgroundColor: Colors.white, // Light dialog
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       title: Text(
         'Settings',
         style: GoogleFonts.fredoka(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: const Color(0xFF333333),
         ),
       ),
       content: Column(
@@ -66,7 +66,10 @@ class _SettingsDialogState extends State<SettingsDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(
             'Cancel',
-            style: GoogleFonts.fredoka(fontSize: 18, color: Colors.white60),
+            style: GoogleFonts.fredoka(
+              fontSize: 18,
+              color: const Color(0xFF888888),
+            ),
           ),
         ),
         ElevatedButton(
@@ -75,7 +78,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
             Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF6C63FF), // Vibrant action color
+            backgroundColor: const Color(0xFF6C63FF),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
@@ -105,18 +108,24 @@ class _SettingsDialogState extends State<SettingsDialog> {
           children: [
             Text(
               label,
-              style: GoogleFonts.fredoka(fontSize: 18, color: Colors.white),
+              style: GoogleFonts.fredoka(
+                fontSize: 18,
+                color: const Color(0xFF333333),
+              ),
             ),
             Text(
               value.toStringAsFixed(1),
-              style: GoogleFonts.fredoka(fontSize: 16, color: Colors.white60),
+              style: GoogleFonts.fredoka(
+                fontSize: 16,
+                color: const Color(0xFF666666),
+              ),
             ),
           ],
         ),
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
             activeTrackColor: const Color(0xFF6C63FF),
-            inactiveTrackColor: Colors.white24,
+            inactiveTrackColor: const Color(0xFFE0E0E0),
             thumbColor: const Color(0xFF6C63FF),
             overlayColor: const Color(0x296C63FF),
           ),
