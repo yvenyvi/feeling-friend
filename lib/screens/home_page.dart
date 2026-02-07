@@ -151,27 +151,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           actions: [
-            if (_isSpeaking)
-              Padding(
-                padding: const EdgeInsets.only(right: 12.0),
-                child: TextButton.icon(
-                  onPressed: _stopSpeaking,
-                  icon: const Icon(Icons.stop_circle, color: Colors.white),
-                  label: Text(
-                    'STOP',
-                    style: GoogleFonts.fredoka(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
             _buildGlassIconButton(Icons.help_outline, 'Help', _openHelp),
             const SizedBox(width: 12),
             _buildGlassIconButton(Icons.settings, 'Settings', _openSettings),
@@ -232,7 +211,28 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        // Removed FloatingActionButton
+        floatingActionButton: _isSpeaking
+            ? FloatingActionButton.extended(
+                onPressed: _stopSpeaking,
+                icon: const Icon(
+                  Icons.stop_circle_outlined,
+                  size: 32,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'STOP',
+                  style: GoogleFonts.fredoka(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                backgroundColor: Colors.redAccent.shade400,
+                elevation: 12,
+                tooltip: 'Stop Speaking (Esc)',
+              )
+            : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

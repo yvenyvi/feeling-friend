@@ -43,7 +43,7 @@ void main() {
     expect(find.byIcon(Icons.settings), findsOneWidget);
     expect(find.byIcon(Icons.help_outline), findsOneWidget);
 
-    // Verify Stop button is initially HIDDEN (FAB removed, AppBar action hidden)
+    // Verify Stop button is initially HIDDEN (Conditional FAB)
     expect(find.text('STOP'), findsNothing);
   });
 }

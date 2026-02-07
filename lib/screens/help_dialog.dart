@@ -29,7 +29,7 @@ class HelpDialog extends StatelessWidget {
             const SizedBox(height: 20),
             _buildSection(
               'Stop Speaking',
-              'Tap the "STOP" button in the top-right corner or press ESC.',
+              'Tap the "STOP" button at the bottom or press ESC.',
               Icons.stop_circle_outlined,
             ),
             const SizedBox(height: 20),
