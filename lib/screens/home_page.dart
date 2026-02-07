@@ -29,6 +29,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _loadSettings();
     _setupTtsHandlers();
+
+    // Show help dialog after the first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _openHelp();
+    });
   }
 
   void _setupTtsHandlers() {
@@ -163,11 +168,11 @@ class _HomePageState extends State<HomePage> {
           // No gradient, just the background color
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 100.0,
+              top: 80.0,
               left: 20,
               right: 20,
               bottom: 20,
-            ),
+            ), // Reduced top padding
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -179,39 +184,18 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10), // Reduced spacing
                 Expanded(
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       int crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
-                      int rowCount = (Emotion.emotions.length / crossAxisCount)
-                          .ceil();
-
-                      // Calculate available height for the grid
-                      // Ensure there's enough space, fall back to a reasonable aspect ratio if height is very small
-                      double totalVerticalSpacing = (rowCount - 1) * 24.0;
-                      double cardHeight =
-                          (constraints.maxHeight - totalVerticalSpacing) /
-                          rowCount;
-
-                      double totalHorizontalSpacing =
-                          (crossAxisCount - 1) * 20.0;
-                      double cardWidth =
-                          (constraints.maxWidth - totalHorizontalSpacing) /
-                          crossAxisCount;
-
-                      double childAspectRatio = cardHeight > 0
-                          ? (cardWidth / cardHeight)
-                          : 0.85;
-
                       return GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: EdgeInsets.zero,
+                        physics: const BouncingScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
                           crossAxisSpacing: 20,
                           mainAxisSpacing: 24,
-                          childAspectRatio: childAspectRatio,
+                          childAspectRatio: 0.85,
                         ),
                         itemCount: Emotion.emotions.length,
                         itemBuilder: (context, index) {
